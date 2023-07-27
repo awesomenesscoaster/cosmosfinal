@@ -1,6 +1,5 @@
 import cv2
 import matplotlib.pyplot as plt
-import sys
 
 img = cv2.imread("/Users/ethanc/Library/Photos/Libraries/Syndication.photoslibrary/scopes/syndication/resources/derivatives/4/49B1B64A-0BC8-4E9E-B829-79F167613435_1_102_o.jpeg")
 img.shape
@@ -52,7 +51,7 @@ while True:
     )  # apply the function we created to the video frame
 
     cv2.imshow(
-        "My Face Detection Project", video_frame
+        "Face Detection", video_frame
     )  # display the processed frame in a window named "My Face Detection Project"
 
     if cv2.waitKey(1) & 0xFF == ord("q"):
@@ -60,7 +59,5 @@ while True:
 
 video_capture.release()
 cv2.destroyAllWindows()
-
-
 
 
