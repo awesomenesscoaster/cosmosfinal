@@ -1,7 +1,7 @@
 import cv2
 import matplotlib.pyplot as plt
 
-img = cv2.imread("/Users/ethanc/Library/Photos/Libraries/Syndication.photoslibrary/scopes/syndication/resources/derivatives/4/49B1B64A-0BC8-4E9E-B829-79F167613435_1_102_o.jpeg")
+img = cv2.imread("C:/Users/Rhyan Shah/Pictures/Saved Pictures/team.jpg")
 img.shape
 (4000, 2667, 3)
 
