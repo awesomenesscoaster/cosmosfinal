@@ -4,7 +4,7 @@ from zipfile import ZipFile
 from PIL import Image
 import os
 
-with ZipFile("/Users/Rhyan Shah/Downloads/archive.zip", 'r') as zObject:
+with ZipFile("/Users/ethanc/Documents/faces/triplets.csv", 'r') as zObject:
     zObject.extractall()
 
 folder = os.listdir('CelebA FR Triplets')

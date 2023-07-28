@@ -1,63 +1,19 @@
 import cv2
-import matplotlib.pyplot as plt
+import cvlib as cv
+from cvlib.object_detection import draw_bbox
+from gtts import gTTS
+from playsound import playsound
 
-img = cv2.imread("C:/Users/Rhyan Shah/Pictures/Saved Pictures/team.jpg")
-img.shape
-(4000, 2667, 3)
+video = cv2.VideoCapture(0)
 
-gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-gray_image.shape
-(4000, 2667)
-
-face_classifier = cv2.CascadeClassifier(
-    cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
-) 
-
-face = face_classifier.detectMultiScale(
-    gray_image, scaleFactor=1.1, minNeighbors=5, minSize=(40, 40)
-)
-
-for (x, y, w, h) in face:
-    cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 4)
-
-img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-
-
-plt.figure(figsize=(20,10))
-plt.imshow(img_rgb)
-plt.axis('off')
-
-ace_classifier = cv2.CascadeClassifier(
-    cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
-)
-
-video_capture = cv2.VideoCapture(0)
-
-def detect_bounding_box(vid):
-    gray_image = cv2.cvtColor(vid, cv2.COLOR_BGR2GRAY)
-    faces = face_classifier.detectMultiScale(gray_image, 1.1, 5, minSize=(40, 40))
-    for (x, y, w, h) in faces:
-        cv2.rectangle(vid, (x, y), (x + w, y + h), (0, 255, 0), 4)
-    return faces
 
 while True:
+    ret, frame = video.read()
+    bbox, label, conf = cv.detect_common_objects(frame)
+    output_image = draw_bbox(frame, bbox, label, conf)
 
-    result, video_frame = video_capture.read()  # read frames from the video
-    if result is False:
-        break  # terminate the loop if the frame is not read successfully
-
-    faces = detect_bounding_box(
-        video_frame
-    )  # apply the function we created to the video frame
-
-    cv2.imshow(
-        "Face Detection", video_frame
-    )  # display the processed frame in a window named "My Face Detection Project"
+    cv2.imshow("Object Detection", output_image)
 
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break
-
-video_capture.release()
 cv2.destroyAllWindows()
-
-
