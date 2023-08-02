@@ -21,7 +21,7 @@ fonts = cv2.FONT_HERSHEY_COMPLEX
 #     return focal_length
 
 def Distance_finder(Focal_Length, real_face_width, face_width_in_frame):
-    distance = ((real_face_width * Focal_Length)/face_width_in_frame)/96 * 1.714
+    distance = ((real_face_width * Focal_Length)/face_width_in_frame)/96 * 8
     return distance
 
 # def face_data(image):
