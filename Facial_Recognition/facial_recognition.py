@@ -1,6 +1,17 @@
 import cv2
 import os
-import np
+import numpy as np
+
+import time
+
+from tensorflow import keras
+from sklearn.model_selection import train_test_split
+from keras.preprocessing.image import img_to_array
+
+global picture_files
+global dir_files_cropped
+global img_numpy_array_list
+
 
 scanning_process = False
 guessing_process = False
@@ -16,7 +27,6 @@ if user_name not in names:
     folder_path = os.path.join('C:/Users/Rhyan Shah/Documents/GitHub/cosmosfinal/Facial_Recognition/Datasets', user_name)
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
-    
 else:
     guessing_process = True
     print('Welcome back:', user_name)
@@ -46,55 +56,35 @@ if scanning_process == True:
             cv2.imwrite(img_name,frame)
             print("screenshot taken")            
             img_counter += 1
+            
     cam.release()
     cv2.destroyAllWindows()
     
     dir_files = []
-    dir_files_cropped = []
     
     dir_index = 'C:/Users/Rhyan Shah/Documents/GitHub/cosmosfinal/Facial_Recognition/Datasets'
     
     for dir in os.scandir(dir_index):
         if dir.is_dir():
             dir_files.append(dir)
-            
-    for i in range(0,len(dir_files)):
-        str(dir_files[i]).replace('<DirEntry', '', inplace = True)
-        str(dir_files[i]).replace('>', '', inplace = True)
-    
-    print(dir_files)
-        
 
-
-# if scanning_process == True:
-#     cap = cv2.VideoCapture(0)
-#     window_name = 'frame'
-#     delay = 1
-#     cycle = 300
+    picture_files = []
+    dir_files_cropped = []
+    img_numpy_array_list = []
     
     
-#     def save_frame_camera_cycle(device_num, dir_path, basename, cycle, ext='jpg', delay=1, window_name='frame'):
-#         if not cap.isOpened():
-#             return
-
-#         os.makedirs(dir_path, exist_ok=True)
-#         base_path = os.path.join(dir_path, basename)
-
-#         n = 0
+    for dir in os.listdir(dir_index):
+        folder_name = os.path.join(dir_index, dir)
+        for file in os.listdir(folder_name):
+            if file.endswith(".png"):
+                picture_files.append(file)
+                dir_files_cropped.append(dir)
+                img = cv2.imread(os.path.join(folder_name, file), cv2.IMREAD_GRAYSCALE)
+                img.resize((200,200))
+                img_numpy_array = img_to_array(img)
+                img_numpy_array_list.append(img_numpy_array)
     
-#     while True:
-#         ret, frame = cap.read()
-#         cv2.imshow(window_name, frame)
-#         if cv2.waitKey(delay) & 0xFF == ord('q'):
-#             break
-#         if n == cycle:
-#             n = 0
-#             cv2.imwrite('{}_{}.{}'.format(base_path, datetime.datetime.now().strftime('%Y%m%d%H%M%S%f'), ext), frame)
-#         n += 1
-
-#         cv2.destroyWindow(window_name)
-        
-#     save_frame_camera_cycle(0, 'data/temp', 'camera_capture_cycle', 300)
+    img_numpy_array_list = np.array(img_numpy_array_list)
+    print(picture_files)
+    print(dir_files_cropped)
     
-#     cap.release()
-#     cv2.destroyAllWindows()
