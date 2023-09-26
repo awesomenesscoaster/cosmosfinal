@@ -7,12 +7,11 @@ from sklearn.model_selection import train_test_split
     
 from facial_recognition import picture_files
 from facial_recognition import dir_files_cropped
-from facial_recognition import img_numpy_array_list
+from facial_recognition import integer_img_conversion
 
-x_data = img_numpy_array_list
+x_data = integer_img_conversion
 y_data = np.array(dir_files_cropped)
-print(x_data.shape)
-x_data = img_numpy_array_list.reshape(-1, 200, 200, 1)
+# x_data = img_numpy_array_list.reshape(-1, 200, 200, 1)
 
 x_train, x_test, y_train, y_test = train_test_split(x_data, y_data, test_size=0.20, random_state=0)
 
@@ -40,4 +39,6 @@ y=keras.utils.to_categorical(y_train),
 epochs=2,
 batch_size=10
 )
-    
+
+score = model_cnn.evaluate(x_test, y_test)
+print(score)

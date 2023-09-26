@@ -12,7 +12,6 @@ global picture_files
 global dir_files_cropped
 global img_numpy_array_list
 
-
 scanning_process = False
 guessing_process = False
 
@@ -43,19 +42,29 @@ if scanning_process == True:
         if not ret:
             print("Failed.")
             
+        def face_screenshot(num_of_pics):
+            fo = os.chdir(folder_path)
+            ss_counter = 0
+            img_counter = 0
+            while ss_counter < num_of_pics:
+                img_name = "opencv_frame_{}.png".format(img_counter)
+                cv2.imwrite(img_name,frame)
+                print("screenshot taken")            
+                img_counter += 1
+                ss_counter += 1
+                
         cv2.imshow("Facial Recognition", frame)
         
-        k = cv2.waitKey(1)
+        k = cv2.waitKey(1)  
         
+        #Escape Key
         if k%256 == 27:
             print("Escape")
             break   
+        
+        #Space Bar
         elif k%256 == 32:
-            fo = os.chdir(folder_path)
-            img_name = "opencv_frame_{}.png".format(img_counter)
-            cv2.imwrite(img_name,frame)
-            print("screenshot taken")            
-            img_counter += 1
+            face_screenshot(15)
             
     cam.release()
     cv2.destroyAllWindows()
@@ -71,7 +80,7 @@ if scanning_process == True:
     picture_files = []
     dir_files_cropped = []
     img_numpy_array_list = []
-    
+    integer_img_conversion = []
     
     for dir in os.listdir(dir_index):
         folder_name = os.path.join(dir_index, dir)
@@ -87,4 +96,17 @@ if scanning_process == True:
     img_numpy_array_list = np.array(img_numpy_array_list)
     print(picture_files)
     print(dir_files_cropped)
+    
+    name_counter = 0
+    
+    #FIgure this SHIT out so that there is actually x number of data outputted; rn there is only x-1 data shown
+    #Turning corresponding "name" labels into integers for the CNN to actually work
+    for i in range(0,len(dir_files_cropped)-1):
+        if dir_files_cropped[i] == dir_files_cropped[i+1]:
+            integer_img_conversion.append(name_counter)
+        else:
+            integer_img_conversion.append(name_counter)
+            name_counter += 1
+    
+    print(integer_img_conversion)
     
