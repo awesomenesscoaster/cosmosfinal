@@ -4,14 +4,13 @@ import numpy as np
 
 from tensorflow import keras
 from sklearn.model_selection import train_test_split
-    
-from facial_recognition import picture_files
-from facial_recognition import dir_files_cropped
 from facial_recognition import integer_img_conversion
+from facial_recognition import img_numpy_array_list
 
-x_data = integer_img_conversion
-y_data = np.array(dir_files_cropped)
-# x_data = img_numpy_array_list.reshape(-1, 200, 200, 1)
+x_data = img_numpy_array_list
+y_data = np.array(integer_img_conversion)
+x_data = img_numpy_array_list.reshape(-1, 200, 200, 1)
+print(x_data.shape)
 
 x_train, x_test, y_train, y_test = train_test_split(x_data, y_data, test_size=0.20, random_state=0)
 

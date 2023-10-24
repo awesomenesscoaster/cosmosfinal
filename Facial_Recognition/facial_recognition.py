@@ -10,22 +10,29 @@ from keras.preprocessing.image import img_to_array
 
 global picture_files
 global dir_files_cropped
+global integer_img_conversion
 global img_numpy_array_list
 
 scanning_process = False
 guessing_process = False
 
-names = []
-
 user_name = input("What is your name? ")
 
-if user_name not in names:
-    scanning_process = True
-    names.append(user_name)
+folder_path =  folder_path = os.path.join('C:/Users/Rhyan Shah/Documents/GitHub/cosmosfinal/Facial_Recognition/Datasets', user_name)
+# if user_name not in names:
+#     scanning_process = True
+#     names.append(user_name)
     
-    folder_path = os.path.join('C:/Users/Rhyan Shah/Documents/GitHub/cosmosfinal/Facial_Recognition/Datasets', user_name)
-    if not os.path.exists(folder_path):
-        os.makedirs(folder_path)
+#     folder_path = os.path.join('C:/Users/Rhyan Shah/Documents/GitHub/cosmosfinal/Facial_Recognition/Datasets', user_name)
+#     if not os.path.exists(folder_path):
+#         os.makedirs(folder_path)
+# else:
+#     guessing_process = True
+#     print('Welcome back:', user_name)
+
+if not os.path.exists(folder_path):
+    os.makedirs(folder_path)
+    scanning_process = True
 else:
     guessing_process = True
     print('Welcome back:', user_name)
@@ -107,6 +114,7 @@ if scanning_process == True:
         else:
             integer_img_conversion.append(name_counter)
             name_counter += 1
+    integer_img_conversion.append(name_counter)
     
     print(integer_img_conversion)
     
