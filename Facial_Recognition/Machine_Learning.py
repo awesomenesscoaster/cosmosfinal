@@ -4,8 +4,12 @@ import numpy as np
 
 from tensorflow import keras
 from sklearn.model_selection import train_test_split
+from keras.preprocessing.image import img_to_array
+
 from facial_recognition import integer_img_conversion
 from facial_recognition import img_numpy_array_list
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 x_data = img_numpy_array_list
 y_data = np.array(integer_img_conversion)
@@ -20,7 +24,7 @@ num_filters = 8
 filter_size = 3
 pool_size = 2
 
-model_cnn.add( keras.layers.Conv2D(num_filters, filter_size, input_shape=(8,8,3)) )
+model_cnn.add( keras.layers.Conv2D(num_filters, filter_size, input_shape=(200,200,1)) )
 model_cnn.add( keras.layers.MaxPooling2D(pool_size=pool_size) )
 model_cnn.add( keras.layers.Flatten() )
 model_cnn.add( keras.layers.Dense(2, activation='softmax') )
@@ -32,12 +36,12 @@ loss='categorical_crossentropy',
 metrics=['accuracy'],
 )
     
-model_cnn.fit(
-x = x_train,
-y=keras.utils.to_categorical(y_train),
-epochs=2,
-batch_size=10
-)
+# model_cnn.fit(
+# x = x_train,
+# y=keras.utils.to_categorical(y_train),
+# epochs=2,
+# batch_size=10
+# )
 
-score = model_cnn.evaluate(x_test, y_test)
-print(score)
+# score = model_cnn.evaluate(x_test, y_test)
+# print(score)
