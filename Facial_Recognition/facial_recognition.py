@@ -216,4 +216,4 @@ if guessing_process == True:
                 
         perc_acc = (num/den)*100
         print('Your feedback is valued, thank you for contributing to the data')
-        print('Currently, the algorithm is', perc_acc, 'percent accurate.')
+        print('Currently, the recognition algorithm is', perc_acc, 'percent accurate.')
