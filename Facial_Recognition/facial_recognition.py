@@ -105,8 +105,7 @@ if scanning_process == True:
     
     img_numpy_array_list = np.array(img_numpy_array_list)
     name_counter = 0
-    
-    #FIgure this SHIT out so that there is actually x number of data outputted; rn there is only x-1 data shown
+   
     #Turning corresponding "name" labels into integers for the CNN to actually work
     for i in range(0,len(dir_files_cropped)-1):
         if dir_files_cropped[i] == dir_files_cropped[i+1]:
