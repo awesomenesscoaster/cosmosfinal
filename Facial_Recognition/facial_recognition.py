@@ -30,7 +30,7 @@ folder_path = os.path.join(
 #         os.makedirs(folder_path)
 # else:
 #     guessing_process = True
-#     print('Welcome back:', user_name)
+#     print('Welcome back:', user_name
 
 if not os.path.exists(folder_path):
     os.makedirs(folder_path)
